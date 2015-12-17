@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Users.html - user</title>
+</head>
+<body>
+<p>Hello world</p>
+<table>
+	<tr th:each = "user : ${users}">
+		<td th:text="${user.Name()}"></td> 
+		<td th:text="${user.Mail()}"></td> 
+		<td th:text="${user.Password()}"></td> 
+	</tr> 
+</table>
+
+<form action="/user" method="post">
+	<label for="Name">Nom :</label>
+	<input type = "text" name="Name"/>
+	
+	<label for="Mail">mail :</label>
+	<input type = "text" name="Mail"/>
+	
+	<label for="Password">password :</label>
+	<input type = "text" name="Password"/>
+	
+	<button type="submit">S'inscrire</button>
+</form>
+</body>
+</html>

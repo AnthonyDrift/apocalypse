@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import ort.geekstagram_student.entities.User;
-import ort.geekstagram_student.user.repository.ICommentRepository;
+import ort.geekstagram_student.user.repository.IUserRepository;
 
 /**
  * @author Severin
@@ -19,7 +19,7 @@ import ort.geekstagram_student.user.repository.ICommentRepository;
 public class MysqlUserService implements IUserService{
 
 	@Autowired
-	ICommentRepository repository;
+	IUserRepository repository;
 	
 	@Override
 	public User Add(User user) {
@@ -50,9 +50,9 @@ public class MysqlUserService implements IUserService{
 		if(userToUpdate == null)
 			return false;
 		
-		userToUpdate.SetName(user.GetName());
-		userToUpdate.SetMail(user.GetMail());
-		userToUpdate.SetPassword(user.GetPassword());
+		userToUpdate.SetName(user.Name());
+		userToUpdate.SetMail(user.Mail());
+		userToUpdate.SetPassword(user.Password());
 		
 		if(repository.save(userToUpdate) == userToUpdate)
 			return true;

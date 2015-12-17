@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * 
  */
 @Entity
-@Table(name = "comment")
+@Table(name = "users")
 public class User {
 	
 	@Id
@@ -32,19 +32,19 @@ public class User {
 	@NotNull
 	private String Password;
 	
-	public long GetId(){
+	public long Id(){
 		return Id;
 	}
 	
-	public String GetName(){
+	public String Name(){
 		return Name;
 	}
 	
-	public String GetMail(){
+	public String Mail(){
 		return Mail;
 	}
 	
-	public String GetPassword(){
+	public String Password(){
 		return Password;
 	}
 	
