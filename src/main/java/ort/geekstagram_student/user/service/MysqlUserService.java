@@ -31,6 +31,29 @@ public class MysqlUserService implements IUserService{
 		return repository.findAll();
 	}
 	
+	@Override
+	public User GetByName(String name)
+	{
+		try{
+			return repository.findByName(name);
+		}
+		catch(Exception ex){
+			return null;
+		}
+	}
+	
+	@Override
+	public User GetByMail(String mail)
+	{
+		try{
+			return repository.findByMail(mail);
+		}
+		catch(Exception ex){
+			return null;
+		}
+	}
+	
+	
 	/* Throws Exception when id is null */
 	@Override
 	public User Get(long id) {
@@ -50,9 +73,9 @@ public class MysqlUserService implements IUserService{
 		if(userToUpdate == null)
 			return false;
 		
-		userToUpdate.SetName(user.Name());
-		userToUpdate.SetMail(user.Mail());
-		userToUpdate.SetPassword(user.Password());
+		userToUpdate.setName(user.getName());
+		userToUpdate.setMail(user.getMail());
+		userToUpdate.setPassword(user.getPassword());
 		
 		if(repository.save(userToUpdate) == userToUpdate)
 			return true;

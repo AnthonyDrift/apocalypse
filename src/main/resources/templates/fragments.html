@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+</head>
+<body>
+
+<div th:fragment="research">
+    
+	<form method="post" action="/research">
+	
+		<input type ="text" name="research" placeholder="rechercher"/>
+		
+		<button type="submit">Rechercher</button>
+	</form>
+</div>
+
+<div th:fragment="menu">
+	<ul>
+	<li>Home</li>
+	<li>Sign in</li>
+	<li>Users</li>
+	</ul>
+</div>
+
+<div th:fragment="deconnecter">
+	<form method="get" action="/signout">
+		
+		<button type="submit">Sign Out</button>
+	</form>
+</div>
+
+</body>
+</html>

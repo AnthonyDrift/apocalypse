@@ -15,4 +15,6 @@ public interface IUserService {
 	public User Get(long id);
 	public boolean Update(long id, User user);
 	public boolean Remove(long id);
+	public User GetByName(String name);
+	public User GetByMail(String mail);
 }

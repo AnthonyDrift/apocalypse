@@ -8,13 +8,13 @@
 <p>Hello world</p>
 <table>
 	<tr th:each = "user : ${users}">
-		<td th:text="${user.Name()}"></td> 
-		<td th:text="${user.Mail()}"></td> 
-		<td th:text="${user.Password()}"></td> 
+		<td th:text="${user.getName()}"></td> 
+		<td th:text="${user.getMail()}"></td> 
+		<td th:text="${user.getPassword()}"></td> 
 	</tr> 
 </table>
 
-<form action="/user" method="post">
+<form method="post" action="UserCreation">
 	<label for="Name">nom :</label>
 	<input type = "text" name="Name"/>
 	

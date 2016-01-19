@@ -21,43 +21,43 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long Id;
+	private long id;
 	
 	@NotNull
-	private String Name;
+	private String name;
 	
 	@NotNull
-	private String Mail;
+	private String mail;
 	
 	@NotNull
-	private String Password;
+	private String password;
 	
-	public long Id(){
-		return Id;
+	public long getId(){
+		return id;
 	}
 	
-	public String Name(){
-		return Name;
+	public String getName(){
+		return name;
 	}
 	
-	public String Mail(){
-		return Mail;
+	public String getMail(){
+		return mail;
 	}
 	
-	public String Password(){
-		return Password;
+	public String getPassword(){
+		return password;
 	}
 	
-	public void SetName(String username){
-		this.Name = username;
+	public void setName(String username){
+		this.name = username;
 	}
 	
-	public void SetMail(String mail){
-		this.Mail = mail;
+	public void setMail(String mail){
+		this.mail = mail;
 	}
 	
-	public void SetPassword(String password){
-		this.Password = password;
+	public void setPassword(String password){
+		this.password = password;
 	}
 	
 	public User(){
@@ -66,8 +66,8 @@ public class User {
 	
 	public User(String username, String mail, String password){
 		super();
-		this.Name = username;
-		this.Mail = mail;
-		this.Password = password;
+		this.name = username;
+		this.mail = mail;
+		this.password = password;
 	}
 }
