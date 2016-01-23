@@ -3,21 +3,58 @@
     <head>
         <title>Profil</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+</link>
+<!-- include libraries(jQuery, bootstrap, fontawesome) -->
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet" />
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css"
+	rel="stylesheet" />
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
     </head>
 
     <body>
-    <div th:include="fragments :: research"></div>
-		<form method="post" action="UserCreation">
-			<label for="Name">nom :</label>
-			<input type = "text" name="Name" th:value="${user.getName()}"/>
-			
-			<label for="Mail">mail :</label>
-			<input type = "text" name="Mail" th:value="${user.getMail()}"/>
-			
-			<label for="Password">password :</label>
-			<input type = "text" name="Password" th:value="${user.getPassword()}"/>
-			
-			<button type="submit">S'inscrire</button>
+<div id="header" th:replace="fragments/header :: header"></div>
+<div class="container-fluid">
+		<form method="post" action="updateUser" class="form-inline">
+			<div class="form-group">
+				<label class="sr-only" for="Name">Nom (doit être unique) :</label>
+				<input class="form-control" type = "text" name="Name" th:value="${user.getName()}"/>
+			</div>
+			<div class="form-group">
+				<label  class="sr-only" for="Mail">Mail (doit être unique) :</label>
+				<input  class="form-control" type = "text" name="Mail" th:value="${user.getMail()}"/>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="Password">Mot de passe :</label>
+				<input class="form-control" type = "password" name="Password" th:value="${user.getPassword()}"/>
+			</div>
+			<button type="submit">Modifier son profil</button>
 		</form>
+		
+		<div id="allPosts" style="margin: auto; width: 40%">
+		<h1>Tous les Posts de <span th:text="${user.getName()}"></span></h1>
+		<div th:each="post : ${posts}" class="well">
+			<h3>
+				<a th:text="${post.key.title}" th:href="${'/post/' + post.key.id}"></a>
+			</h3>
+			<p th:text="${post.key.content}"></p>
+			<b th:text="${post.key.convertTime()}"></b> <br />
+			<div th:each="sub : ${post.value}">
+				<b th:text="${'Nombre de commentaires : ' + sub.key}"></b>
+				<br /> <b th:text="${'Nombre de likes : ' + sub.value}"></b>
+			</div>
+		</div>
+	</div>
+</div>
     </body>
 </html>

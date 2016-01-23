@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Liste de tous les Posts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+</link>
+<!-- include libraries(jQuery, bootstrap, fontawesome) -->
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet" />
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css"
+	rel="stylesheet" />
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js-->
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.css"
+	rel="stylesheet" />
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.js"></script>
+<script th:inline="javascript">
+	$(document).ready(function() {
+		$('#like').click(function() {
+			$.ajax({
+				method : "POST",
+				url : "/like",
+				data : {
+					idPost : [[${post.id}]]
+				},
+				success : function(data){
+					console.log(data);
+					$('#unlike').css('display', 'inline');
+					$('#like').css('display', 'none');
+				}
+			})
+		});
+		$('#unlike').click(function() {
+			$.ajax({
+				method : "POST",
+				url : "/unlike",
+				data : {
+					idPost : [[${post.id}]]
+				},
+				success : function(data){
+					console.log(data);
+					$('#like').css('display', 'inline');
+					$('#unlike').css('display', 'none');
+				}
+			})
+		});
+	});
+</script>
+</head>
+
+<body>
+	<div id="header" th:replace="fragments/header :: header"></div>
+
+	<div class="well" style="margin: auto; width: 40%">
+		<h3 th:text="${post.title}"></h3>
+		<p th:utext="${post.content}"></p>
+		<b th:text="${post.convertTime()}"></b>
+		<br />
+		<b th:text="${author}"></b>
+		<table class="table" style="text-align: center;">
+			<tr>
+				<td style="width: 33.33%"><a
+					th:href="${'/posttoupdate/' + post.id}"><button
+							class="btn btn-warning">Modifier ce Post</button></a></td>
+				<td style="width: 33.33%">
+					<form method="post" action="/deletepost">
+						<input type="hidden" name="id" th:value="${post.id}"></input> <input
+							type="submit" value="Supprimer ce post" class="btn btn-danger"></input>
+					</form>
+				</td>
+				<td style="width: 33.33%"><button id="like"
+						class="btn btn-info"
+						th:style="${liked== true} ? 'display: none': 'display: inline'">J'aime
+						! ♥</button>
+					<button id="unlike" class="btn btn-info"
+						th:style="${liked== true} ? 'display: inline': 'display: none'">Je
+						n'aime plus...</button></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="" style="margin: auto; width: 40%; margin-top: 30px;">
+		<div th:each="comment: ${comments}" class="well"
+			style="margin-left: 10%;">
+			<h3 th:text="${comment.title}"></h3>
+			<p th:text="${comment.content}"></p>
+			<b th:text="${comment.convertTime()}"></b>
+			<b th:text="${commentsAuthor[__${#comment}__]}"></b>
+		</div>
+	</div>
+	<label label:text="${res}"></label>
+	<hr />
+
+	<div class="well" style="margin: auto; width: 40%; margin-top: 30px;">
+		<form action="/addcomment" method="POST">
+			<input type="hidden" th:value="${post.id}" name="id"></input>
+			<div class="form-group">
+				<label for="exampleInputEmail1">Titre du Commentaire</label> <input
+					name="title" type="text" class="form-control" id="title"
+					placeholder="Votre titre...."></input>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Contenu du Commentaire</label>
+				<textarea name="content" class="form-control" id="content" rows="5"
+					placeholder="Commentez de façon pertinente et intéressante..."></textarea>
+			</div>
+			<input type="submit" value="Postez votre commentaire"
+				class="btn btn-info"></input>
+		</form>
+	</div>
+</body>
+</html>

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ort.geekstagram_student.entities.Post;
 import ort.geekstagram_student.entities.User;
+import ort.geekstagram_student.posts.repository.IPostRepository;
 import ort.geekstagram_student.user.repository.IUserRepository;
 
 /**
@@ -17,10 +19,13 @@ import ort.geekstagram_student.user.repository.IUserRepository;
  *
  */
 @Controller
-public class PageController {
+public class UtilsController {
 	
 	@Autowired
-	IUserRepository repository;
+	IUserRepository userRepository;
+	
+	@Autowired
+	IPostRepository postRepository;
 
 	@RequestMapping(method = RequestMethod.GET, value ="/login")
 	public String UserLogin(){
@@ -29,17 +34,15 @@ public class PageController {
 	
 	@RequestMapping(method = RequestMethod.POST, value="/research")
 	public String GetResearch(@RequestParam("research") String research){
-		User user = repository.findByName(research);
+		User user = userRepository.findByName(research);
+		Post post = postRepository.findByTitle(research);
 		if(user == null){
-			user = repository.findByMail(research);
+			user = userRepository.findByMail(research);
 		}
 		if(user !=null)
 			return "redirect:/user/"+user.getId();
-		else return "index";
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value ="/index")
-	public String GetIndex(){
-		return "index";
+		if(post!=null)
+			return "redirect:/post/"+post.getId();
+		else return "/posts";
 	}
 }

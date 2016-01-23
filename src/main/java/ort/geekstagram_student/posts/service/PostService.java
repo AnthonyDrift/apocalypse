@@ -16,10 +16,10 @@ public class PostService implements IPostService{
 	private static long id = 0;
 	
 	@Override
-	public void add(Post com){
+	public void add(Post post){
 		id++;
-		com.setId(id);
-		liste.add(com);
+		post.setId(id);
+		liste.add(post);
 	}
 
 	@Override
@@ -42,6 +42,7 @@ public class PostService implements IPostService{
 		Post entity_Res = this.getById(id);
 		
 		if (entity_Res != null){
+			entity_Res.setTitle(entity.getTitle());
 			entity_Res.setContent(entity.getContent());
 			entity_Res.setDate(entity.getDate());
 		}
@@ -61,6 +62,18 @@ public class PostService implements IPostService{
 		    	return ce;
 		    }
 		}
+		return null;
+	}
+
+	@Override
+	public List<Post> getAllComments(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> getAllPostByUser(long userId) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

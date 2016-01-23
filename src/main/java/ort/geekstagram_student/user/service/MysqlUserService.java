@@ -15,8 +15,8 @@ import ort.geekstagram_student.user.repository.IUserRepository;
  */
 
 @Component
-@Qualifier("MysqlUserService")
-public class MysqlUserService implements IUserService{
+@Qualifier("MySQLUserService")
+public class MySQLUserService implements IUserService{
 
 	@Autowired
 	IUserRepository repository;
