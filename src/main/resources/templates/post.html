@@ -67,9 +67,8 @@
 	<div class="well" style="margin: auto; width: 40%">
 		<h3 th:text="${post.title}"></h3>
 		<p th:utext="${post.content}"></p>
-		<b th:text="${post.convertTime()}"></b>
-		<br />
-		<b th:text="${author}"></b>
+		<b th:text="${post.convertTime()}"></b> <br /> <b
+			th:text="${'par ' + author}"></b>
 		<table class="table" style="text-align: center;">
 			<tr>
 				<td style="width: 33.33%"><a
@@ -93,12 +92,12 @@
 	</div>
 
 	<div class="" style="margin: auto; width: 40%; margin-top: 30px;">
-		<div th:each="comment: ${comments}" class="well"
+		<div th:each="comment: ${commentsAuthor}" class="well"
 			style="margin-left: 10%;">
-			<h3 th:text="${comment.title}"></h3>
-			<p th:text="${comment.content}"></p>
-			<b th:text="${comment.convertTime()}"></b>
-			<b th:text="${commentsAuthor[__${#comment}__]}"></b>
+			<h3 th:text="${comment.key.title}"></h3>
+			<p th:text="${comment.key.content}"></p>
+			<b th:text="${comment.key.convertTime()}"></b>
+			<b th:text="${' par ' + comment.value}"></b>
 		</div>
 	</div>
 	<label label:text="${res}"></label>

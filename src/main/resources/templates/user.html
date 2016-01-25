@@ -47,7 +47,7 @@
 			<h3>
 				<a th:text="${post.key.title}" th:href="${'/post/' + post.key.id}"></a>
 			</h3>
-			<p th:text="${post.key.content}"></p>
+			<p th:utext="${post.key.content}"></p>
 			<b th:text="${post.key.convertTime()}"></b> <br />
 			<div th:each="sub : ${post.value}">
 				<b th:text="${'Nombre de commentaires : ' + sub.key}"></b>

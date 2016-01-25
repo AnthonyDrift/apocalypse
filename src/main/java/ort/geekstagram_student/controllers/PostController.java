@@ -85,7 +85,6 @@ public class PostController {
 	public String getById(@PathVariable("id") int id, Model model, HttpSession session) {
 		Post post = postService.getById(id);
 		List<Post> comments = postService.getAllComments(id);
-		List<User> users = (List<User>) userService.GetAll();	
 		Map<Post, String> commentsAuthor = new HashMap<Post, String>();
 		
 		User postAuthor = userService.Get(post.getUserId());
@@ -102,8 +101,6 @@ public class PostController {
 			}
 		}
 
-
-		model.addAttribute("comments", comments);
 		model.addAttribute("commentsAuthor", commentsAuthor);
 		model.addAttribute("post", post);
 		model.addAttribute("liked", isAlreadyLiked);
@@ -142,8 +139,6 @@ public class PostController {
 			HttpSession session) {
 
 		int dateToInsert = (int) ((new Date()).getTime());
-
-		session.setAttribute("userId", 14);
 
 		Post newPost = new Post(title, content, dateToInsert, (int) ((User) session.getAttribute("user")).getId());
 		postService.add(newPost);

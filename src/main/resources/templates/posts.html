@@ -35,11 +35,7 @@
 			<h3 th:if="${session.user == null}">
 				<span th:text="${post.key.title}"></span>
 			</h3>
-<<<<<<< HEAD
 			<p th:utext="${post.key.content}"></p>
-=======
-			<p th:text="${post.key.content}"></p>
->>>>>>> 9d32d9241ad5261f2c8a196d9579dac6918e94fc
 			<b th:text="${post.key.convertTime()}"></b> <br />
 			<div th:each="sub : ${post.value}">
 				<b th:text="${'Nombre de commentaires : ' + sub.key}"></b>
