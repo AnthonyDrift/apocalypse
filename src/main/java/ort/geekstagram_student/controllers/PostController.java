@@ -88,7 +88,10 @@ public class PostController {
 		Map<Post, String> commentsAuthor = new HashMap<Post, String>();
 		
 		User postAuthor = userService.Get(post.getUserId());
-		Like like = likeService.getById(id, (int) ((User) session.getAttribute("user")).getId());
+		Like like = null;
+		if (session.getAttribute("user") != null){
+			like = likeService.getById(id, (int) ((User) session.getAttribute("user")).getId());
+		}
 
 		boolean isAlreadyLiked = like == null ? false : true;
 		

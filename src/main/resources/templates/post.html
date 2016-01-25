@@ -69,7 +69,8 @@
 		<p th:utext="${post.content}"></p>
 		<b th:text="${post.convertTime()}"></b> <br /> <b
 			th:text="${'par ' + author}"></b>
-		<table class="table" style="text-align: center;">
+		<table class="table" style="text-align: center;"
+			th:if="${session.user != null}">
 			<tr>
 				<td style="width: 33.33%"><a
 					th:href="${'/posttoupdate/' + post.id}"><button
@@ -96,14 +97,13 @@
 			style="margin-left: 10%;">
 			<h3 th:text="${comment.key.title}"></h3>
 			<p th:text="${comment.key.content}"></p>
-			<b th:text="${comment.key.convertTime()}"></b>
-			<b th:text="${' par ' + comment.value}"></b>
+			<b th:text="${comment.key.convertTime()}"></b> <b
+				th:text="${' par ' + comment.value}"></b>
 		</div>
 	</div>
-	<label label:text="${res}"></label>
 	<hr />
-
-	<div class="well" style="margin: auto; width: 40%; margin-top: 30px;">
+	<div class="well" style="margin: auto; width: 40%; margin-top: 30px;"
+		th:if="${session.user != null}">
 		<form action="/addcomment" method="POST">
 			<input type="hidden" th:value="${post.id}" name="id"></input>
 			<div class="form-group">
@@ -119,6 +119,11 @@
 			<input type="submit" value="Postez votre commentaire"
 				class="btn btn-info"></input>
 		</form>
+	</div>
+	<div class="well" style="margin: auto; width: 40%; margin-top: 30px;"
+		th:if="${session.user == null}">
+		<a th:href="${'/login'}">Connectez-vous pour pouvoir
+			poster un commentaire.</a>
 	</div>
 </body>
 </html>

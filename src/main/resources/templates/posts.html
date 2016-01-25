@@ -29,11 +29,8 @@
 	<div id="allPosts" style="margin: auto; width: 40%">
 		<h1>Tous les Posts</h1>
 		<div th:each="post : ${posts_comments}" class="well">
-			<h3 th:if="${session.user != null}">
+			<h3>
 				<a th:text="${post.key.title}" th:href="${'/post/' + post.key.id}"></a>
-			</h3>
-			<h3 th:if="${session.user == null}">
-				<span th:text="${post.key.title}"></span>
 			</h3>
 			<p th:utext="${post.key.content}"></p>
 			<b th:text="${post.key.convertTime()}"></b> <br />
