@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Nouveau Post</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous"></link>
+<!-- include libraries(jQuery, bootstrap, fontawesome) -->
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet" />
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css"
+	rel="stylesheet" />
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js-->
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.css"
+	rel="stylesheet" />
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({height: 300});
+		$('div.note-editable').html($('textarea#content').val());
+		$(document).find('button').click(function() {
+			$('textarea#content').val($("div.note-editable").html());
+		});
+	});
+</script>
+</head>
+
+<body>
+	<div id="header" th:replace="fragments/header :: header"></div>
+	<form style="margin: auto; width: 30%" action="/updatepost"
+		method="POST">
+		<input type="hidden" th:value="${post.id}" name="id"></input>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Titre</label> <input name="title"
+				type="text" class="form-control" id="title"
+				placeholder="Votre titre...." th:value="${post.title}"></input>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Contenu du post</label>
+			<textarea name="content" class="form-control" id="content"
+				placeholder="Racontez-nous quelque chose d'intéressant..."
+				th:text="${post.content}" style="visibility: hidden; position: absolute;"></textarea>
+			<div id="summernote"></div>
+		</div>
+		<label th:value="${'Écrit par ' + 'Auteur' + ' le ' + 'Date'}"></label>
+		<button type="submit" class="btn btn-info">Mettre à jour le
+			post</button>
+	</form>
+</body>
+</html>

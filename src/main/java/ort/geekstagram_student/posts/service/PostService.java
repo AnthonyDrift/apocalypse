@@ -3,32 +3,33 @@ package ort.geekstagram_student.posts.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import ort.geekstagram_student.posts.PostEntity;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import ort.geekstagram_student.entities.Post;
 
 @Component
 @Qualifier("FakePostService")
 public class PostService implements IPostService{
 
-	public static List<PostEntity> liste = new ArrayList<PostEntity>();
+	public static List<Post> liste = new ArrayList<Post>();
 	private static long id = 0;
 	
 	@Override
-	public void add(PostEntity com){
+	public void add(Post post){
 		id++;
-		com.setId(id);
-		liste.add(com);
+		post.setId(id);
+		liste.add(post);
 	}
 
 	@Override
-	public List<PostEntity> getAll(){
+	public List<Post> getAll(){
 		return liste;
 	}
 
 	@Override
-	public PostEntity getById(long id){
-		for(PostEntity ce : liste ) {
+	public Post getById(long id){
+		for(Post ce : liste ) {
 		    if (ce.getId() == id){
 		    	return ce;
 		    }
@@ -37,10 +38,11 @@ public class PostService implements IPostService{
 	}
 
 	@Override
-	public PostEntity update(long id, PostEntity entity){
-		PostEntity entity_Res = this.getById(id);
+	public Post update(long id, Post entity){
+		Post entity_Res = this.getById(id);
 		
 		if (entity_Res != null){
+			entity_Res.setTitle(entity.getTitle());
 			entity_Res.setContent(entity.getContent());
 			entity_Res.setDate(entity.getDate());
 		}
@@ -54,12 +56,24 @@ public class PostService implements IPostService{
 	}
 
 	@Override
-	public PostEntity getByUserId(long userId) {
-		for(PostEntity ce : liste ) {
+	public Post getByUserId(long userId) {
+		for(Post ce : liste ) {
 		    if (ce.getId() == userId){
 		    	return ce;
 		    }
 		}
+		return null;
+	}
+
+	@Override
+	public List<Post> getAllComments(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> getAllPostByUser(long userId) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

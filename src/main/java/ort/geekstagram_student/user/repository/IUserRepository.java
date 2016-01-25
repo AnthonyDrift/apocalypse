@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import ort.geekstagram_student.entities.User;
 
-public interface ICommentRepository extends CrudRepository<User, Long>{
-
+public interface IUserRepository extends CrudRepository<User, Long>{
+	User findByName(String Name);
+	User findByMail(String Mail);
+		
 }

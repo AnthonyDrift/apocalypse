@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import ort.geekstagram_student.entities.User;
-import ort.geekstagram_student.user.repository.ICommentRepository;
+import ort.geekstagram_student.user.repository.IUserRepository;
 
 /**
  * @author Severin
@@ -15,11 +15,11 @@ import ort.geekstagram_student.user.repository.ICommentRepository;
  */
 
 @Component
-@Qualifier("MysqlUserService")
-public class MysqlUserService implements IUserService{
+@Qualifier("MySQLUserService")
+public class MySQLUserService implements IUserService{
 
 	@Autowired
-	ICommentRepository repository;
+	IUserRepository repository;
 	
 	@Override
 	public User Add(User user) {
@@ -30,6 +30,29 @@ public class MysqlUserService implements IUserService{
 	public Iterable<User> GetAll() {
 		return repository.findAll();
 	}
+	
+	@Override
+	public User GetByName(String name)
+	{
+		try{
+			return repository.findByName(name);
+		}
+		catch(Exception ex){
+			return null;
+		}
+	}
+	
+	@Override
+	public User GetByMail(String mail)
+	{
+		try{
+			return repository.findByMail(mail);
+		}
+		catch(Exception ex){
+			return null;
+		}
+	}
+	
 	
 	/* Throws Exception when id is null */
 	@Override
@@ -50,9 +73,9 @@ public class MysqlUserService implements IUserService{
 		if(userToUpdate == null)
 			return false;
 		
-		userToUpdate.SetName(user.GetName());
-		userToUpdate.SetMail(user.GetMail());
-		userToUpdate.SetPassword(user.GetPassword());
+		userToUpdate.setName(user.getName());
+		userToUpdate.setMail(user.getMail());
+		userToUpdate.setPassword(user.getPassword());
 		
 		if(repository.save(userToUpdate) == userToUpdate)
 			return true;

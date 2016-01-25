@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+	<div th:fragment="header">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".nav-collapse">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Apocalypse</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li
+							th:class="${#httpServletRequest.requestURI.toString() == '/posts'}? 'active' : ''"><a
+							href="#" th:href="@{/posts}">Tous les Posts</a></li>
+						<li
+							th:class="${#httpServletRequest.requestURI.toString() == '/newpost'}? 'active' : ''"><a th:if="${session.user!=null}"
+							href="#" th:href="@{/newpost}">Ajouter un nouveau post</a></li>
+					</ul>
+					
+					<ul class="nav navbar-nav col-md-4">
+						<form method="post" action="/research" style="margin-top:10px">
+							<li class="col-md-4">
+								<input type ="text" name="research" placeholder="rechercher" class="form-control input-sm"/>
+							</li>
+							<li>
+								<button type="submit" class="btn btn-default btn-sm">Rechercher</button>
+							</li>
+						</form>
+					</ul>						
+						
+					
+					
+					<ul th:if="${session.user == null}" class="nav navbar-nav navbar-right">
+						<li><a href="/login">Sign in</a></li>
+						<li><a href="/user">Créer un compte</a></li>
+					</ul>
+					<ul th:if="${session.user != null}" class="nav navbar-nav navbar-right">
+						<li th:class="${#httpServletRequest.requestURI.toString() == '/user'}? 'active' : ''">
+							<a th:href="${'/user/'+session.user.getId()}"><span th:text="${session.user.getName()}"></span></a>
+						</li>
+						<li><a href="/signout">Se déconnecter</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div style="height: 70px;"></div>
+	</div>
+	
+	<div th:fragment="header_Sign">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".nav-collapse">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Apocalypse</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li th:class="${#httpServletRequest.requestURI.toString() == '/login'}? 'active' : ''">
+							<a href="/login">S'identifier</a>
+						</li>
+						<li th:class="${#httpServletRequest.requestURI.toString() == '/user'}? 'active' : ''">
+							<a href="/user">Créer un compte</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div style="height: 70px;"></div>
+	</div>
+</body>
+</html>
