@@ -140,7 +140,8 @@ public class PostController {
 	@RequestMapping(method = RequestMethod.POST, value = "/addpost")
 	public String addPost(@RequestParam("title") String title, @RequestParam("content") String content, Model model,
 			HttpSession session) {
-		long dateToInsert = ((new Date()).getTime());
+
+		int dateToInsert = (int) ((new Date()).getTime());
 
 		session.setAttribute("userId", 14);
 
